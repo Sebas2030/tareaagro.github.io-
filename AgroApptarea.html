@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroApp - Productos agrícolas</title>
+
+    <style>
+
+        body {
+            
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f0f8f0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #287a35;
+        }
+
+        .contenedor {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input, select {
+            padding: 10px;
+            margin: 10px 5px 15px 0;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #328442;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #e8f5e9;
+        }
+    </style>
+</head>
+
+<body>
+     <center>
+    <h1>Bienvenido a AgroApp</h1>
+  </center>
+      
+  <p>
+    AgroApp es una plataforma para la compra y venta de productos agrícolas, así como para la gestión de cultivos y recursos. Nuestra misión es apoyar a los agricultores en su labor diaria, brindándoles herramientas digitales que faciliten la toma de decisiones y optimicen sus procesos productivos.
+  </p>
+       <center><h2>Lista de Productos Agrícolas</h2></center>
+
+    <div class="contenedor">
+
+        <p>Consulta los productos agrícolas disponibles.</p>
+
+        <input
+            type="text"
+            id="buscador"
+            placeholder="Buscar producto..."
+        >
+
+        <select id="filtroCategoria">
+            <option value="">Todas las categorías</option>
+            <option value="Verduras">Verduras</option>
+            <option value="Frutas">Frutas</option>
+            <option value="Cereales">Cereales</option>
+        </select>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+
+            <tbody id="tablaProductos">
+                <tr>
+                    <td>Tomate</td>
+                    <td>Verduras</td>
+                    <td>$3.000</td>
+                    <td>50 kg</td>
+                </tr>
+
+                <tr>
+                    <td>Lechuga</td>
+                    <td>Verduras</td>
+                    <td>$2.000</td>
+                    <td>30 unidades</td>
+                </tr>
+                <tr>
+                    <td>Manzana</td>
+                    <td>Frutas</td>
+                    <td>$4.500</td>
+                    <td>40 kg</td>
+                </tr>
+                <tr>
+                    <td>Maíz</td>
+                    <td>Cereales</td>
+                    <td>$2.500</td>
+                    <td>100 kg</td>
+                </tr>
+                <tr>
+                    <td>Banano</td>
+                    <td>Frutas</td>
+                    <td>$2.800</td>
+                    <td>60 kg</td>
+                </tr>
+                <tr>
+                    <td>Papaya</td>
+                    <td>Frutas</td>
+                    <td>$3.500</td>
+                    <td>40 kg</td>
+                </tr>
+                 <tr>
+                    <td>Arroz</td>
+                    <td>Cereales</td>
+                    <td>$2.500</td>
+                    <td>100 kg</td>
+                </tr>
+
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const buscador = document.getElementById("buscador");
+        const filtroCategoria = document.getElementById("filtroCategoria");
+        const filas = document.querySelectorAll("#tablaProductos tr");
+
+        function filtrarProductos() {
+            const texto = buscador.value.toLowerCase();
+            const categoria = filtroCategoria.value;
+
+            filas.forEach(function(fila) {
+                const producto = fila.cells[0].textContent.toLowerCase();
+                const categoriaProducto = fila.cells[1].textContent;
+
+                const coincideNombre = producto.includes(texto);
+                const coincideCategoria =
+                    categoria === "" || categoriaProducto === categoria;
+
+                if (coincideNombre && coincideCategoria) {
+                    fila.style.display = "";
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+        }
+
+        buscador.addEventListener("input", filtrarProductos);
+        filtroCategoria.addEventListener("change", filtrarProductos);
+    </script>
+</body>
+</html>
